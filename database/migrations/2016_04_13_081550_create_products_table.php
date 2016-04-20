@@ -21,14 +21,6 @@ class CreateProductsTable extends Migration
             $table->text('note');
             $table->timestamps();
         });
-
-        Schema::table('products', function (Blueprint $table) {
-            // $table->integer('supplier_id')->unsigned();
-            $table->foreign('supplier_id')
-                  ->references('id')
-                  ->on('suppliers')
-                  ->onDelete('cascade');
-        });
     }
 
     /**

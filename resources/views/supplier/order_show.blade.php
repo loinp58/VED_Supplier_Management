@@ -24,9 +24,9 @@
 	!!}
 	<button class="btn btn-danger">Xóa</button>
 	{!! Form::close() !!}
-	<a href="{{ route('order_supplier.show', $supplier->id) }}">
+	<a href="{{ route('supplier.show', $supplier->id) }}">
 		<button class="btn btn-warning create-new" style="vertical-align: top;">
-			Các hóa đơn liên quan
+			Các sản phẩm của nhà cung cấp
 		</button>
 	</a>
 	<div class="row">
@@ -60,55 +60,27 @@
 			</div>
 			<div class="lists">
 				<div class="list-title">
-					Danh mục sản phẩm:
+					Danh sách hóa đơn
 				</div>
-				<a href="{{ route('product.create', $supplier->id) }}">
-					<button class="btn btn-primary create-new" style="vertical-align: top;">
-						Thêm mới
-					</button>
-				</a>
-					{!! Form::open([
-							'route' => [ 'product.destroyAll', $supplier->id ],
-							'method' => 'DELETE',
-							'style' => 'display: inline'
-						])
-					!!}
-					<button class="btn btn-danger">Xóa toàn bộ</button>
-				{!! Form::close() !!}
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th> Mã sản phẩm </th>
-							<th> Tên sản phẩm  </th>
-							<th> Mô tả </th>
-							<th> Ghi chú </th>
-							<th> </th>
+							<th> Mã đơn hàng </th>
+							<th> Ngày tạo  </th>
+							<th> Hạn thanh toán </th>
+							<th> Tổng tiền </th>
+							<th> Trạng thái </th>
+							<th> Điểm đánh giá </th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($products as $product)
+						@foreach ($orders as $order)
 						<tr>
-							<td>{{ $product->code        }} </td>
-							<td>{{ $product->name        }} </td>
-							<td>{{ $product->description }} </td>
-							<td>{{ $product->note        }} </td>
-							<td style="width: 20%;">
-								<div class="row pull-right" style="margin-right: 10px">
-									<a href="{{ route('product.edit', [$supplier->id, $product->id]) }} ">
-										<button class="btn btn-success create-new" style="vertical-align: top;margin-bottom: 0">
-											Sửa
-										</button>
-									</a>
-									{!! Form::open([
-									'route' => [ 'product.destroy', $supplier->id, $product->id],
-									'method' => 'DELETE',
-									'style' => 'display: inline'
-									])
-									!!}
-									<button class="btn btn-danger" style="margin-bottom: 0">Xóa</button>
-									{!! Form::close() !!}
-								</div>
-							</td>
+							<td>{{ $order->code              }} </td>
+							<td>{{ $order->create_at_request }} </td>
+							<td>{{ $order->deadline_payment  }} </td>
+							<td>{{ $order->total             }} </td>
+							<td>{{ $order->score_evaluation  }} </td>
 						</tr>
 						@endforeach
 					</tbody>
@@ -116,7 +88,7 @@
 			</div>
 		</div>
 		<div class="col-md-6 col-md-offset-4">
-			{!! $products->render() !!}
+			{!! $orders->render() !!}
 		</div>
 	</div>
 </div>

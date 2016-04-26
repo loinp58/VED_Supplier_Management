@@ -54,7 +54,7 @@
 				  <a href="#" class="list-group-item">
 				    Lịch sử
 				  </a>
-				  <a href="{{url('/order-requests')}}" class="list-group-item">Yêu cầu mua hàng</a>
+				  <a href="{{url('/request-orders')}}" class="list-group-item">Yêu cầu mua hàng</a>
 				  <a href="{{url('/orders')}}" class="list-group-item">Quản lý đơn hàng</a>
 				  <a href="{{url('/suppliers')}}" class="list-group-item">Quản lý nhà cung cấp</a>
 				  <a href="#" class="list-group-item">Thống kê, báo cáo</a>

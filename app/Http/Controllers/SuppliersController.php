@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Supplier;
 use App\Models\Order;
+use App\Models\Order_Detail;
 use App\Models\Product;
 use Response;
 
@@ -16,7 +17,7 @@ class SuppliersController extends Controller
     {	
         $suppliers = Supplier::paginate(5);
         foreach ($suppliers as $supplier) {
-            $supplier->count = Order::getAll()->where('supplier_id', $supplier->ID)->count();
+            $supplier->count = Order::getAll()->where('supplier_id', $supplier->id)->count();
         }
         return view('supplier.index', compact('suppliers'));
     }
@@ -61,8 +62,11 @@ class SuppliersController extends Controller
 
     public function orderShow($supplier_id)
     {
-        $supplier = Supplier::find($id);
+        $supplier = Supplier::find($supplier_id);
         $orders = Order::where('supplier_id', $supplier_id)->paginate(5);
-        return view('supplier.show', compact('supplier', 'products'));
+        foreach ($orders as $order) {
+            $order->total = Order_Detail::getTotalMoney($order->id);
+        }
+        return view('supplier.order_show', compact('supplier', 'orders'));
     }
 }
